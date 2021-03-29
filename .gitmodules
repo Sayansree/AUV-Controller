@@ -1,0 +1,3 @@
+[submodule "HAUVC-Model"]
+	path = HAUVC-Model
+	url = git@github.com:Sayansree/HAUVC-Model.git
