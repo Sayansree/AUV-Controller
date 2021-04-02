@@ -2,6 +2,19 @@ cmake_minimum_required(VERSION 3.1.0)
 project(AUV-Controller)
 add_compile_options(-std=c++11)
 include_directories( /json)
+set(JSON_HEADERS
+    json/config.h
+    json/forwards.h
+    json/json_features.h
+    json/value.h
+    json/reader.h
+    json/version.h
+    json/writer.h
+    json/assertions.h
+    json/allocator.h 
+    json/json_tool.h 
+    
+)
 add_library(json_libs ${JSON_SOURCES} ${JSON_HEADERS})
 add_library(pid_lib HAUVC-Model/PID-Controller/PID.cpp HAUVC-ModelPID-Controller/PID.h)
 add_library(model_lib model.cpp action.h model.h )
