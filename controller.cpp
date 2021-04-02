@@ -42,3 +42,8 @@ void controller::init(){
     for(int i = PITCH; i <= HEAVE; i++)
         dof.push_back(new model());
 }
+
+int main()
+{
+    controller *c=new controller();
+}
