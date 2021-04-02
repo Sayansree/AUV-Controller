@@ -18,9 +18,17 @@ void controller::configure(){
     connfigFile.open(CONTROLLER_CONFIG_FILE ,std::ios::in); 
     strStream << connfigFile.rdbuf(); 
     std::string jsonString = strStream.str();
-    for(int i = PITCH; i <= HEAVE; i++){
 
-        
+    Json::CharReaderBuilder builder;
+    Json::CharReader* reader = builder.newCharReader();
+    Json::Value root;
+    std::string errors;
+
+    bool parsingSuccessful = reader->parse(jsonString.c_str(),
+        jsonString.c_str() + jsonString.size(), &root, &errors);
+    delete reader;
+    for(int i = PITCH; i <= HEAVE; i++){
+        //DOF_NAME[i]
     }
         
     
