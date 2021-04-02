@@ -9,12 +9,12 @@
 #include "HAUVC-Model/model.h"
 #include <iostream>
 #include <vector>
-
+#include "json/json.h"
 class controller{
     public:
         controller();
         ~controller();
-        void Configure();
+        void configure();
 
     private:
         std::vector<model*> dof;
