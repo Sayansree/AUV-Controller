@@ -5,11 +5,13 @@
 
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-
+#define CONTROLLER_CONFIG_FILE "controller.config"
 #include "HAUVC-Model/model.h"
+#include "json/json.h"
 #include <iostream>
 #include <vector>
-#include "json/json.h"
+#include <fstream>
+
 class controller{
     public:
         controller();
@@ -18,6 +20,7 @@ class controller{
 
     private:
         std::vector<model*> dof;
+        void init();
         
 };
 #endif

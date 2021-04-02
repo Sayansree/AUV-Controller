@@ -6,14 +6,26 @@
 #include "controller.h"
 
 controller::controller(){
-    for(int i = PITCH; i <= HEAVE; i++)
-        dof.push_back(new model());
+    init();
 }
 controller::~controller(){
 
 }
 void controller::configure(){
-    for(model *m:dof){
+    std::fstream connfigFile;
+    std::stringstream strStream;
+    
+    connfigFile.open(CONTROLLER_CONFIG_FILE ,std::ios::in); 
+    strStream << connfigFile.rdbuf(); 
+    std::string jsonString = strStream.str();
+    for(int i = PITCH; i <= HEAVE; i++){
+
         
     }
+        
+    
+}
+void controller::init(){
+    for(int i = PITCH; i <= HEAVE; i++)
+        dof.push_back(new model());
 }
