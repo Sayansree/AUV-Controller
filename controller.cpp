@@ -7,6 +7,7 @@
 
 controller::controller(){
     init();
+    configure();
 }
 controller::~controller(){
 
@@ -27,8 +28,12 @@ void controller::configure(){
     bool parsingSuccessful = reader->parse(jsonString.c_str(),
         jsonString.c_str() + jsonString.size(), &root, &errors);
     delete reader;
+
+    if (!parsingSuccessful){
+        //to do add log failure
+    }
     for(int i = PITCH; i <= HEAVE; i++){
-        //DOF_NAME[i]
+        std::cout<<root[DOF_NAME[i]];
     }
         
     
