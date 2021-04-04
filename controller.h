@@ -5,13 +5,14 @@
 
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-#define CONTROLLER_CONFIG_FILE "controller.config"
+#define CONTROLLER_CONFIG_FILE "controllerConfig.json"
 #include "HAUVC-Model/model.h"
-#include "json/json.h"
+#include "jsonlib/json.h"
 #include <iostream>
 #include <vector>
+#include <string>
 #include <fstream>
-
+#include <sstream>
 class controller{
     public:
         controller();
