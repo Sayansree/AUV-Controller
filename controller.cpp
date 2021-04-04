@@ -33,7 +33,7 @@ void controller::configure(){
         //to do add log failure
     }
     for(int i = PITCH; i <= HEAVE; i++){
-        std::cout<<root[DOF_NAME[i]];
+        std::cout<<root["Controller"][DOF_NAME[i]];
     }
         
     
