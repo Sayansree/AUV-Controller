@@ -13,38 +13,26 @@ controller::~controller(){
 
 }
 void controller::configure(){
-    std::fstream connfigFile;
-    std::stringstream strStream;
-    
-    connfigFile.open(CONTROLLER_CONFIG_FILE ,std::ios::in); 
-    strStream << connfigFile.rdbuf(); 
-    std::string jsonString = strStream.str();
-
-    Json::CharReaderBuilder builder;
-    Json::CharReader* reader = builder.newCharReader();
-    Json::Value root;
-    std::string errors;
-
-    bool parsingSuccessful = reader->parse(jsonString.c_str(),
-        jsonString.c_str() + jsonString.size(), &root, &errors);
-    delete reader;
-
-    if (!parsingSuccessful){
-        //to do add log failure
+    boost::property_tree::ptree root,degree,basefuc,vel,disp,limit;
+    try{
+    boost::property_tree::read_json("file.json",root);
+    root =root.get_child("Controller");
+    }catch(const boost::property_tree::ptree_error msg){
+     //cout<<msg.what();
+     //todo add log error
     }
     for(int i = PITCH; i <= HEAVE; i++){
-        Json::Value data=root["Controller"][DOF_NAME[i]];
-        dof[i]->setCoeff(data["BaseFunction"]["a2"].asDouble(),
-                         data["BaseFunction"]["a1"].asDouble(),
-                         data["BaseFunction"]["a0"].asDouble());
-        dof[i]->setILimits(data["ILimits"]["lo"].asDouble(),
-                           data["ILimits"]["hi"].asDouble());
-        dof[i]->setVelWeights(data["velocity"]["Kp"].asDouble(),
-                              data["velocity"]["Ki"].asDouble(),
-                              data["velocity"]["Kd"].asDouble());
-        dof[i]->setDispWeights(data["displacement"]["Kp"].asDouble(),
-                              data["displacement"]["Ki"].asDouble(),
-                              data["displacement"]["Kd"].asDouble());
+        degree=root.get_child(DOF_NAME[i]);
+        basefuc=degree.get_child("BaseFunction");
+        vel=degree.get_child("Velocity");
+        disp=degree.get_child("Displacement");
+        limit=degree.get_child("ILimit");
+        dof[i]->setCoeff(basefuc.get<double>("a2"),
+                         basefuc.get<double>("a1"),
+                         basefuc.get<double>("a0"));
+        dof[i]->setILimits();
+        dof[i]->setVelWeights();
+        dof[i]->setDispWeights();
     }    
 }
 void controller::init(){

@@ -5,7 +5,7 @@
 
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-#define CONTROLLER_CONFIG_FILE "controllerConfig.json"
+#define CONTROLLER_CONFIG_FILE "config.json"
 #include "HAUVC-Model/model.h"
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
