@@ -27,12 +27,17 @@ void controller::configure(){
         vel=degree.get_child("Velocity");
         disp=degree.get_child("Displacement");
         limit=degree.get_child("ILimit");
-        dof[i]->setCoeff(basefuc.get<double>("a2"),
-                         basefuc.get<double>("a1"),
-                         basefuc.get<double>("a0"));
-        dof[i]->setILimits();
-        dof[i]->setVelWeights();
-        dof[i]->setDispWeights();
+        dof[i]->setCoeff(basefuc.get<double>("A2"),
+                         basefuc.get<double>("A1"),
+                         basefuc.get<double>("A0"));
+        dof[i]->setILimits(limit.get<double>("Lo"),
+                           limit.get<double>("Hi"));
+        dof[i]->setVelWeights(vel.get<double>("Kp"),
+                              vel.get<double>("Ki"),
+                              vel.get<double>("Kd"));
+        dof[i]->setDispWeights(disp.get<double>("Kp"),
+                               disp.get<double>("Ki"),
+                               disp.get<double>("Kd"));
     }    
 }
 void controller::init(){
