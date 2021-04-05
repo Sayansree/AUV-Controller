@@ -51,7 +51,13 @@ void controller::init(){
     for(int i = PITCH; i <= HEAVE; i++)
         dof.push_back(new model());
 }
-
+double* controller::update(action actionSet[]){
+    double output[6];
+    for(int i = PITCH; i <= HEAVE; i++){
+        output[i]=dof[i]->update(actionSet[i]);
+    }
+    return output;
+}
 int main()
 {
     controller *c=new controller();
