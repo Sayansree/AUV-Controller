@@ -27,13 +27,13 @@ void controller::configure(){
                             basefuc.get<double>("A1"),
                             basefuc.get<double>("A0"));
             dof[i]->setILimits(limit.get<double>("Lo"),
-                            limit.get<double>("Hi"));
+                               limit.get<double>("Hi"));
             dof[i]->setVelWeights(vel.get<double>("Kp"),
-                                vel.get<double>("Ki"),
-                                vel.get<double>("Kd"));
+                                  vel.get<double>("Ki"),
+                                  vel.get<double>("Kd"));
             dof[i]->setDispWeights(disp.get<double>("Kp"),
-                                disp.get<double>("Ki"),
-                                disp.get<double>("Kd"));
+                                   disp.get<double>("Ki"),
+                                   disp.get<double>("Kd"));
         }
     }catch(const boost::property_tree::ptree_error msg){
      //cout<<msg.what();
