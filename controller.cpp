@@ -24,8 +24,8 @@ void controller::configure(){
             disp=degree.get_child("Displacement");
             limit=degree.get_child("ILimit");
             dof[i]->setCoeff(basefuc.get<double>("A2"),
-                            basefuc.get<double>("A1"),
-                            basefuc.get<double>("A0"));
+                             basefuc.get<double>("A1"),
+                             basefuc.get<double>("A0"));
             dof[i]->setILimits(limit.get<double>("Lo"),
                                limit.get<double>("Hi"));
             dof[i]->setVelWeights(vel.get<double>("Kp"),
