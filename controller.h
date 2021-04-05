@@ -21,6 +21,7 @@ class controller{
 
     private:
         std::vector<model*> dof;
+        std::string DOF_NAME[6]={"PITCH","ROLL","YAW","SURGE","SWAY","HEAVE"};
         void init();
         
 };
