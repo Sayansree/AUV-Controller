@@ -33,10 +33,19 @@ void controller::configure(){
         //to do add log failure
     }
     for(int i = PITCH; i <= HEAVE; i++){
-        std::cout<<root["Controller"][DOF_NAME[i]];
-    }
-        
-    
+        Json::Value data=root["Controller"][DOF_NAME[i]];
+        dof[i]->setCoeff(data["BaseFunction"]["a2"].asDouble(),
+                         data["BaseFunction"]["a1"].asDouble(),
+                         data["BaseFunction"]["a0"].asDouble());
+        dof[i]->setILimits(data["ILimits"]["lo"].asDouble(),
+                           data["ILimits"]["hi"].asDouble());
+        dof[i]->setVelWeights(data["velocity"]["Kp"].asDouble(),
+                              data["velocity"]["Ki"].asDouble(),
+                              data["velocity"]["Kd"].asDouble());
+        dof[i]->setDispWeights(data["displacement"]["Kp"].asDouble(),
+                              data["displacement"]["Ki"].asDouble(),
+                              data["displacement"]["Kd"].asDouble());
+    }    
 }
 void controller::init(){
     for(int i = PITCH; i <= HEAVE; i++)
