@@ -7,7 +7,8 @@
 #define CONTROLLER_H
 #define CONTROLLER_CONFIG_FILE "controllerConfig.json"
 #include "HAUVC-Model/model.h"
-#include "jsonlib/json.h"
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
 #include <iostream>
 #include <vector>
 #include <string>
