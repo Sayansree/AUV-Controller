@@ -18,6 +18,7 @@ class controller{
         controller();
         ~controller();
         void configure();
+        double* update(action[6]);
 
     private:
         std::vector<model*> dof;
