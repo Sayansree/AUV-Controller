@@ -18,6 +18,7 @@ class controller{
         controller();
         ~controller();
         void configure();
+        void setMode(actionMode,axis);
         double* update(action[6]);
 
     private:
