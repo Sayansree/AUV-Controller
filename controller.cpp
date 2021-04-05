@@ -61,7 +61,3 @@ double* controller::update(action actionSet[]){
 void controller::setMode(actionMode mode, axis ax){
     dof[ax]->setMode(mode);
 }
-int main()
-{
-    controller *c=new controller();
-}
