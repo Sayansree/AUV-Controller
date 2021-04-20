@@ -15,6 +15,7 @@ controller::~controller(){
 
 }
 void controller::configure(){
+    thrusters->configure();
     boost::property_tree::ptree root,degree,basefuc,vel,disp,limit;
     try{
         boost::property_tree::read_json(HOME_PATH+CONFIG_FILE,root);
@@ -43,15 +44,16 @@ void controller::configure(){
     }    
 }
 void controller::init(){
+    thrusters=new ThrusterPlugin();
     for(int i = PITCH; i <= HEAVE; i++)
         dof.push_back(new model());
 }
-double* controller::update(action actionSet[]){
+void controller::update(action actionSet[]){
     double output[6];
     for(int i = PITCH; i <= HEAVE; i++){
         output[i]=dof[i]->update(actionSet[i]);
     }
-    return output;
+    thrusters->write(output);
 }
 void controller::setMode(actionMode mode, axis ax){
     dof[ax]->setMode(mode);
