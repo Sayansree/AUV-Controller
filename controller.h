@@ -5,7 +5,7 @@
 
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-#define CONTROLLER_CONFIG_FILE "config.json"
+#define CONFIG_FILE "/.config/AUV/config.json"
 #include "HAUVC-Model/model.h"
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
@@ -14,6 +14,10 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+
 class controller{
     public:
         controller();
@@ -25,6 +29,7 @@ class controller{
     private:
         std::vector<model*> dof;
         std::string DOF_NAME[6]={"PITCH","ROLL","YAW","SURGE","SWAY","HEAVE"};
+        std::string HOME_PATH;
         void init();
         
 };
