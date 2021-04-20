@@ -13,11 +13,13 @@ class ThrusterPlugin{
         ~ThrusterPlugin();
         void configure(std::vector<std::vector<double>>);
         void write(double[]);
-        double* trim(double[]);
+        
 
     private:
         int N;
         std::vector<std::vector<double>> weights;
+        double* trim(double[]);
+        double trim(double);
         
 };
 #endif
