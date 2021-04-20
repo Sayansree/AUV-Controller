@@ -24,7 +24,7 @@ class ThrusterPlugin{
 
     private:
         int N;
-        std::strinf HOME_PATH;
+        std::string HOME_PATH;
         std::vector<std::vector<double>> weights;
         double* trim(double[]);
         double trim(double);
