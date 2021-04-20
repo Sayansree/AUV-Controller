@@ -10,22 +10,24 @@
 #include <boost/property_tree/ptree.hpp>
 #include <vector>
 #include <iostream>
-#include <unistd.h>
-#include <sys/types.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<sys/stat.h>
+#include<sys/types.h>
 #include <pwd.h>
 
 class ThrusterPlugin{
     public:
         ThrusterPlugin();
         ~ThrusterPlugin();
-        void configure();
         void write(double[]);
         
 
     private:
-        int N;
-        std::string HOME_PATH;
+        int N,fd;
+        std::string HOME_PATH,THRUSTER_PIPE;
         std::vector<std::vector<double>> weights;
+        void configure();
         double* trim(double[]);
         double trim(double);
         

@@ -15,7 +15,6 @@ controller::~controller(){
 
 }
 void controller::configure(){
-    thrusters->configure();
     boost::property_tree::ptree root,degree,basefuc,vel,disp,limit;
     try{
         boost::property_tree::read_json(HOME_PATH+CONFIG_FILE,root);

@@ -3,6 +3,9 @@
 ThrusterPlugin::ThrusterPlugin(){
     if((HOME_PATH=getenv("HOME"))=="")
         HOME_PATH=getpwuid(getuid())->pw_dir;
+    fd=-1;
+    configure();
+    //openPipe();
 }
 ThrusterPlugin::~ThrusterPlugin(){
 
@@ -11,6 +14,7 @@ void ThrusterPlugin::configure(){
     boost::property_tree::ptree root;
     try{
         boost::property_tree::read_json(HOME_PATH+CONFIG_FILE,root);
+        THRUSTER_PIPE = root.get_child("Pipes").get<std::string>("ThrusterFIFO");
         root =root.get_child("Thruster").get_child("TransformMatrix");
         for (std::pair<const std::__cxx11::string, boost::property_tree::ptree> &rows : root){
             std::vector<double> row;
