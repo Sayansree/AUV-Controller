@@ -9,6 +9,10 @@ ThrusterPlugin::~ThrusterPlugin(){
 void ThrusterPlugin::configure(std::vector<std::vector<double>> weights){
     this->weights=weights;
 }
+double ThrusterPlugin::trim(double inp){
+    if(inp>1)return 1;
+    if(inp<-1)return -1;
+}
 double* ThrusterPlugin::trim(double inp[]){
     double out[weights.size()];
     for(int i=0; i<weights.size(); i++)
