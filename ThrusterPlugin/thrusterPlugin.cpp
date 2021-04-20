@@ -5,10 +5,15 @@ ThrusterPlugin::ThrusterPlugin(){
         HOME_PATH=getpwuid(getuid())->pw_dir;
     fd=-1;
     configure();
-    //openPipe();
+    openPipe();
 }
 ThrusterPlugin::~ThrusterPlugin(){
-
+    close(fd);
+    unlink(THRUSTER_PIPE.c_str());
+}
+void ThrusterPlugin::openPipe(){
+    mkfifo(THRUSTER_PIPE.c_str(),0666);
+    fd = open(THRUSTER_PIPE.c_str(),O_WRONLY);
 }
 void ThrusterPlugin::configure(){
     boost::property_tree::ptree root;
@@ -39,7 +44,7 @@ double* ThrusterPlugin::trim(double inp[]){
         out[i]=trim(inp[i]);
     return out;
 }
-void ThrusterPlugin::write(double dof[]){
+void ThrusterPlugin::drive(double dof[]){
     double throttle[N];
     for(int i=0; i<N; i++){
         throttle[i]=0;

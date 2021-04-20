@@ -20,7 +20,7 @@ class ThrusterPlugin{
     public:
         ThrusterPlugin();
         ~ThrusterPlugin();
-        void write(double[]);
+        void drive(double[]);
         
 
     private:
@@ -28,6 +28,7 @@ class ThrusterPlugin{
         std::string HOME_PATH,THRUSTER_PIPE;
         std::vector<std::vector<double>> weights;
         void configure();
+        void openPipe();
         double* trim(double[]);
         double trim(double);
         

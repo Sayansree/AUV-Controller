@@ -52,7 +52,7 @@ void controller::update(action actionSet[]){
     for(int i = PITCH; i <= HEAVE; i++){
         output[i]=dof[i]->update(actionSet[i]);
     }
-    thrusters->write(output);
+    thrusters->drive(output);
 }
 void controller::setMode(actionMode mode, axis ax){
     dof[ax]->setMode(mode);
