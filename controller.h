@@ -22,7 +22,8 @@ class controller{
     public:
         controller();
         ~controller();
-        void configure();
+        void configureController();
+        void configureThrusterPlugin();
         void setMode(actionMode,axis);
         double* update(action[6]);
 
