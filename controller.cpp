@@ -8,6 +8,8 @@
 controller::controller(){
     init();
     configure();
+    if((HOME_PATH=getenv("HOME"))=="")
+        HOME_PATH=getpwuid(getuid())->pw_dir;
 }
 controller::~controller(){
 
@@ -15,7 +17,7 @@ controller::~controller(){
 void controller::configure(){
     boost::property_tree::ptree root,degree,basefuc,vel,disp,limit;
     try{
-        boost::property_tree::read_json("file.json",root);
+        boost::property_tree::read_json(HOME_PATH+CONFIG_FILE,root);
         root =root.get_child("Controller");
         for(int i = PITCH; i <= HEAVE; i++){
             degree=root.get_child(DOF_NAME[i]);
