@@ -1,14 +1,29 @@
 #include "thrusterPlugin.h"
 
 ThrusterPlugin::ThrusterPlugin(){
-
+    if((HOME_PATH=getenv("HOME"))=="")
+        HOME_PATH=getpwuid(getuid())->pw_dir;
 }
 ThrusterPlugin::~ThrusterPlugin(){
 
 }
-void ThrusterPlugin::configure(std::vector<std::vector<double>> weights){
-    this->weights=weights;
+void ThrusterPlugin::configure(){
+    boost::property_tree::ptree root;
+    try{
+        boost::property_tree::read_json(HOME_PATH+CONFIG_FILE,root);
+        root =root.get_child("Thruster").get_child("TransformMatrix");
+        for (std::pair<const std::__cxx11::string, boost::property_tree::ptree> &rows : root){
+            std::vector<double> row;
+            for (std::pair<const std::__cxx11::string, boost::property_tree::ptree> &cols : rows.second)
+                row.push_back(cols.second.get_value<double>());
+            weights.push_back(row);
+        }
+    }catch(const boost::property_tree::ptree_error msg){
+     //cout<<msg.what();
+     //todo add log error
+    }
     N=weights.size();
+    
 }
 double ThrusterPlugin::trim(double inp){
     if(inp>1)return 1;
@@ -28,5 +43,5 @@ void ThrusterPlugin::write(double dof[]){
             throttle[i]+=weights[i][j]*dof[j];
     }
     double *trimmed=trim(throttle);
-    
+
 }
