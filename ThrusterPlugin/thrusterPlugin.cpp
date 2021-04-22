@@ -34,14 +34,17 @@ void ThrusterPlugin::configure(){
     N=weights.size();
     
 }
-double ThrusterPlugin::trim(double inp){
-    if(inp>1)return 1;
-    if(inp<-1)return -1;
+uint8_t ThrusterPlugin::encode(double inp){
+    uint8_t out=0;
+    inp=(inp+1)*127+1;
+    if(inp>255)return 255;
+    if(inp<1)return 1;
+    return (uint8_t)inp;
 }
-double* ThrusterPlugin::trim(double inp[]){
-    double out[N];
+uint8_t* ThrusterPlugin::encode(double inp[]){
+    uint8_t out[N];
     for(int i=0; i<N; i++)
-        out[i]=trim(inp[i]);
+        out[i]=encode(inp[i]);
     return out;
 }
 void ThrusterPlugin::drive(double dof[]){
@@ -51,6 +54,9 @@ void ThrusterPlugin::drive(double dof[]){
         for(int j=0; j<weights[i].size(); j++)
             throttle[i]+=weights[i][j]*dof[j];
     }
-    double *trimmed=trim(throttle);
-
+    uint8_t *packet=encode(throttle);
+    writePipe(packet);
+}
+void ThrusterPlugin::writePipe(uint8_t *packet){
+    write(fd,packet,N);
 }

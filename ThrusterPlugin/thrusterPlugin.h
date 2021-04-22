@@ -29,8 +29,9 @@ class ThrusterPlugin{
         std::vector<std::vector<double>> weights;
         void configure();
         void openPipe();
-        double* trim(double[]);
-        double trim(double);
+        void writePipe(uint8_t*);
+        uint8_t* encode(double[]);
+        uint8_t encode(double);
         
 };
 #endif
